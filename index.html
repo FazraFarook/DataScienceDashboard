@@ -14,7 +14,7 @@
   --surface:  #2a2d35;
   --surface2: #32363f;
   --border:   #3d4250;
-  --accent:   #f5a623;   /* orange — matches reference image */
+  --accent:   #f5a623;
   --cyan:     #00d4ff;
   --coral:    #ff6b6b;
   --amber:    #ffd166;
@@ -37,9 +37,7 @@ body {
   display: flex;
 }
 
-/* ═══════════════════════════════
-   MAIN AREA
-═══════════════════════════════ */
+/* MAIN AREA */
 .main {
   flex: 1;
   display: flex;
@@ -68,9 +66,7 @@ body {
 /* Content */
 .content { padding: 20px 22px; flex: 1; }
 
-/* ═══════════════════════════════
-   SECTION HEADINGS
-═══════════════════════════════ */
+/* SECTION HEADINGS */
 .section-heading {
   font-family: var(--mono);
   font-size: 20px;
@@ -81,9 +77,7 @@ body {
   padding-left: 2px;
 }
 
-/* ═══════════════════════════════
-   CONTROLS ROW
-═══════════════════════════════ */
+/* CONTROLS ROW */
 .controls-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -163,9 +157,7 @@ input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.25); }
 .btn.link-probit.active   { background:rgba(255,209,102,.15); border-color:#ffd166; color:#ffd166; }
 .btn.link-cloglog.active  { background:rgba(255,107,107,.15); border-color:#ff6b6b; color:#ff6b6b; }
 
-/* ═══════════════════════════════
-   METRIC CARDS ROW
-═══════════════════════════════ */
+/* METRIC CARDS ROW */
 .metrics-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -191,7 +183,6 @@ input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.25); }
 .metric-icon.coral  { background: rgba(255,107,107,.15); }
 .metric-icon.amber  { background: rgba(255,209,102,.15); }
 .metric-icon.green  { background: rgba(6,214,160,.15); }
-.metric-body {}
 .metric-label {
   font-family: var(--mono);
   font-size: 13px;
@@ -212,9 +203,7 @@ input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.25); }
 .metric-val.green { color: var(--green); }
 .metric-sub { font-size: 13px; color: #e0e4ed; margin-top: 1px; }
 
-/* ═══════════════════════════════
-   CHARTS GRID
-═══════════════════════════════ */
+/* CHARTS GRID */
 .charts-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -254,9 +243,7 @@ input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.25); }
   border-radius: 20px;
 }
 
-/* ═══════════════════════════════
-   FOOTER / STATS BAR
-═══════════════════════════════ */
+/* FOOTER / STATS BAR */
 .stats-bar {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -472,9 +459,8 @@ input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.25); }
 </div><!-- /main -->
 
 <script>
-// ─────────────────────────────────────────────
+
 // State
-// ─────────────────────────────────────────────
 const state = {
   n: 500,
   imbPct: 20,
@@ -482,9 +468,7 @@ const state = {
   link: 'logit'
 };
 
-// ─────────────────────────────────────────────
 // Math helpers
-// ─────────────────────────────────────────────
 const logit   = eta => 1 / (1 + Math.exp(-eta));
 const probit  = eta => normalCDF(eta);
 const cloglog = eta => 1 - Math.exp(-Math.exp(eta));
@@ -507,9 +491,7 @@ function seededRand(seed) {
   return () => { s = (s * 1664525 + 1013904223) & 0xffffffff; return (s >>> 0) / 0xffffffff; };
 }
 
-// ─────────────────────────────────────────────
 // Dataset simulation
-// ─────────────────────────────────────────────
 function simulate() {
   const { n, imbPct, balance, link } = state;
   const rng = seededRand(n * 1000 + imbPct);
@@ -581,9 +563,7 @@ function boxMuller(rng) {
   return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
 }
 
-// ─────────────────────────────────────────────
 // Charts
-// ─────────────────────────────────────────────
 let charts = {};
 const GRID  = 'rgba(80,88,100,0.7)';
 const TICKS = '#b0b8c8';
@@ -671,9 +651,7 @@ function initCharts() {
   });
 }
 
-// ─────────────────────────────────────────────
 // Update
-// ─────────────────────────────────────────────
 function update() {
   const { n, imbPct, balance, link } = state;
   const res = simulate();
@@ -734,9 +712,7 @@ function update() {
 
 }
 
-// ─────────────────────────────────────────────
 // Controls
-// ─────────────────────────────────────────────
 document.getElementById('sl-n').addEventListener('input', e => {
   state.n = +e.target.value;
   document.getElementById('lbl-n').textContent = e.target.value;
